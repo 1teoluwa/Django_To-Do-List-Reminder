@@ -1,6 +1,11 @@
 # Django To-Do-List-Reminder
 
-The app is a To-Do List needed with a reminder feature using Celery and .
+The app is a To-Do List with features like;
+- Reminder of task through emails using Celery.
+- Group Task; Creating a task for a group
+- Chat with Group members
+
+This is achieved through Celery and Web-socket.
 
 ## Installation
 
@@ -27,4 +32,3 @@ Run the app:
 ```bash
 python manage.py runserver
 ```
-
