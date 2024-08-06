@@ -1,0 +1,7 @@
+Hello {{name|safe}}
+You just added a task:
+{{task|safe}}
+Which is due by: {{time|safe}}
+
+A reminder will be sent again
+Thank you!

@@ -1,0 +1,5 @@
+Hello {{name|safe}}
+Enter the OTP below to be added to the group {{group_name|safe}}:
+{{otp|safe}}
+
+Thank you!

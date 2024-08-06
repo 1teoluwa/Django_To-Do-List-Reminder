@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <title>{% block title %} Welcome to To Do List{% endblock %}</title>
+
+  <style>
+    .small {
+      font-size: 0.875rem;
+      color: #4b4b4b;
+    }
+                .login,
+          .image {
+              min-height: 100vh;
+          }
+
+          .bg-image {
+              background-image: url('https://picsum.photos/id/1079/1080');
+              background-size: cover;
+              background-position: center center;
+          }
+
+          .container-fluid {
+              max-width: 100%;
+          }
+
+          .account-form input {
+              border: 2px solid #ccc;
+              height: calc(2em + .75rem + 2px);
+          }
+
+          .account-form input:focus {
+              border-color: #1497ff;
+              box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(255, 0, 0, 0.6);
+          }
+
+  </style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8 col-md-8  mx-auto">
+                            <h1>To do list</h1>
+                            <a href="{% url 'task' %}">Go back</a>
+                                <form action="" method="POST" >
+                                {% csrf_token %}
+                                    <p>Are you sure you want to delete this task? "{{task}}"</p>
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

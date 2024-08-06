@@ -1,0 +1,8 @@
+Hello {{name|safe}}
+You've been added to the {{group|safe}} group
+Here is the group task:
+{{task|safe}}
+Which is due by: {{time|safe}}
+
+A reminder will be sent again
+Thank you!

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Lobby{% endblock %}
+{% block content %}
+
+<style>
+    /* Styling for the chat room */
+    .chat-container {
+        display: flex;
+        height: 100vh;
+    }
+
+    .chat-sidebar {
+        flex: 1;
+        background-color: #f8f9fa;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .chat-main {
+        flex: 3;
+        background-image: url('https://picsum.photos/id/1079/1080');
+        background-size: cover;
+        background-position: center center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .chat-box {
+        max-width: 600px;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-input {
+        border: 2px solid #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        width: calc(100% - 85px);
+        margin-right: 10px;
+        font-size: 16px;
+    }
+
+    .chat-submit {
+        background-color: #1497ff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .chat-message {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 4px;
+    }
+
+    .chat-message p {
+        margin: 0;
+        font-size: 16px;
+    }
+</style>
+
+<div class="chat-container">
+    <div class="chat-sidebar">
+        <h3>Chat Room</h3>
+        <div id="messages" class="chat-messages"></div>
+
+    </div>
+    <div class="chat-main">
+        <div class="chat-box">
+            <form id="form" action="">
+                <input type="text" id="message" name="message" class="chat-input" placeholder="Type your message...">
+                <button type="submit" class="chat-submit">Send</button>
+            </form>
+        {% for member in group_members %}
+            <p>Hi {{member.name}}, Welcome!!</p>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // WebSocket connection setup
+    const chatSocket = new WebSocket(`ws://${window.location.host}/ws/socket-server/`);
+
+    chatSocket.onmessage = function(e) {
+        let data = JSON.parse(e.data);
+        console.log("Data: ", data);
+
+        if (data.type === 'chat') {
+            let messages = document.getElementById('messages');
+            messages.innerHTML += `
+                <div class="chat-message">
+                    <p>${data.message}</p>
+                </div>`;
+        }
+    };
+
+    // Form submission handler
+    let form = document.getElementById('form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let messageInput = document.getElementById('message');
+        let message = messageInput.value.trim();
+        if (message !== '') {
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInput.value = '';
+        }
+    });
+</script>
+
+{% endblock %}
